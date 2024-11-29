@@ -43,6 +43,15 @@ if [ "$MY_FS" = "ext4" ]; then
 	fallocate -l "$SWAP_SIZE"G /mnt/swap/swapfile
 	chmod 600 /mnt/swap/swapfile
 	mkswap /mnt/swap/swapfile
+elif [ "$MY_FS" = "xfs" ]; then
+	yes | mkfs.xfs "$MY_ROOT"
+	mount "$MY_ROOT" /mnt
+
+	# Create swapfile
+	mkdir /mnt/swap
+	fallocate -l "$SWAP_SIZE"G /mnt/swap/swapfile
+	chmod 600 /mnt/swap/swapfile
+	mkswap /mnt/swap/swapfile
 elif [ "$MY_FS" = "btrfs" ]; then
 	mkfs.btrfs -f "$MY_ROOT"
 

@@ -80,8 +80,8 @@ until (echo "$SWAP_SIZE" | grep -Eq "^[0-9]+$") && [ "$SWAP_SIZE" -gt 0 ] && [ "
 done
 
 # Choose filesystem
-until [ "$MY_FS" = "btrfs" ] || [ "$MY_FS" = "ext4" ]; do
-	printf "Filesystem (btrfs/ext4): " && read -r MY_FS
+until [ "$MY_FS" = "btrfs" ] || [ "$MY_FS" = "xfs" ] || [ "$MY_FS" = "ext4" ]; do
+	printf "Filesystem (btrfs/xfs/ext4): " && read -r MY_FS
 	[ ! "$MY_FS" ] && MY_FS="btrfs"
 done
 
