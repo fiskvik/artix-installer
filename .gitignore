@@ -1,3 +1,4 @@
 *.bak
 __pycache__
 Session.vim
+authorized_keys
