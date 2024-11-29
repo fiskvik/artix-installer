@@ -49,7 +49,7 @@ grub-install --target=x86_64-efi --efi-directory=/boot --removable --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Maybe other user?
-if [ ! -z "$USER" ]
+if [ ! -z "$USER" ]; then
         useradd -m -G users,lp,power,video,network,storage,wheel,audio,power,log,optical,scanner,rfkill $USER
 	yes "$USER_PASSWORD" | passwd $USER
 fi
