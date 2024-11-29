@@ -53,6 +53,14 @@ yes "$ROOT_PASSWORD" | passwd
 
 sed -i '/%wheel ALL=(ALL) ALL/s/^#//g' /etc/sudoers
 
+cp ./10-installer /etc/sudoers.d
+cp ./ssh_auth_sock /etc/sudoers.d
+cp ./telegraf /etc/sudoers.d
+
+chmod 640 /etc/sudoers.d/10-installer
+chmod 640 /etc/sudoers.d/ssh_auth_sock
+chmod 640 /etc/sudoers.d/telegraf
+
 # Other stuff you should do
 if [ "$MY_INIT" = "openrc" ]; then
 	sed -i '/rc_need="localmount"/s/^#//g' /etc/conf.d/swap
@@ -60,6 +68,14 @@ if [ "$MY_INIT" = "openrc" ]; then
 elif [ "$MY_INIT" = "dinit" ]; then
 	ln -s /etc/dinit.d/connmand /etc/dinit.d/boot.d/
 fi
+
+# Make vim behave itself
+echo "set mouse=" >> /etc/vimrc
+echo "set ttymouse=" >> /etc/vimrc
+
+# OpenSSH
+rc-update add sshd default
+
 
 # Configure mkinitcpio
 [ "$MY_FS" = "btrfs" ] && sed -i 's/BINARIES=()/BINARIES=(\/usr\/bin\/btrfs)/g' /etc/mkinitcpio.conf
