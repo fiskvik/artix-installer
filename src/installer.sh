@@ -25,7 +25,7 @@ pkgs="base base-devel $MY_INIT elogind-$MY_INIT efibootmgr grub dhcpcd wpa_suppl
 [ "$ENCRYPTED" = "y" ] && pkgs="$pkgs cryptsetup cryptsetup-$MY_INIT"
 
 # Partition disk
-printf "label: gpt\n,550M,U\n,,\n" | sfdisk "$MY_DISK"
+printf "label: gpt\n,550M,U\n,,\n" | sfdisk "$MY_DISK" --force
 
 # Format and mount partitions
 if [ "$ENCRYPTED" = "y" ]; then
