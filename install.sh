@@ -109,8 +109,35 @@ done
 until [ "$MY_HOSTNAME" ]; do
 	printf "Hostname: " && read -r MY_HOSTNAME
 done
+until [ "$YESNO" = "y" ]; do
+        printf "You typed $MY_HOSTNAME"
+        printf "\n"
+        printf "Is this correct? (Y/n): " && read -r YESNO
+        [ ! "$YESNO" ] && YESNO="y"
+        if [ "$YESNO" = "n" ]; then
+               printf "Try again: " && read -r MY_HOSTNAME
+        fi
+done
+
+unset -v YESNO
 
 # Users
+printf "Do you need a user account on the system: " && read -r USER
+if [ "$USER" ]; then
+         until [ "$YESNO" = "y" ]; do
+		printf "You typed $USER"
+		printf "\n"
+		printf "Is this correct? (Y/n): " && read -r YESNO
+		[ ! "$YESNO" ] && YESNO="y"
+		if [ "$YESNO" = "n" ]; then
+		       printf "Try again: " && read -r USER
+		fi
+         done
+	 USER_PASSWORD=$(confirm_password "user password")
+fi
+
+unset -v YESNO
+
 ROOT_PASSWORD=$(confirm_password "root password")
 
 printf "\nDone with configuration. Installing...\n\n"
@@ -125,6 +152,7 @@ sudo MY_INIT="$MY_INIT" MY_DISK="$MY_DISK" PART1="$PART1" PART2="$PART2" \
 sudo cp src/iamchroot.sh /mnt/root/ &&
 	sudo MY_INIT="$MY_INIT" PART2="$PART2" MY_FS="$MY_FS" ENCRYPTED="$ENCRYPTED" \
 		REGION_CITY="$REGION_CITY" MY_HOSTNAME="$MY_HOSTNAME" CRYPTPASS="$CRYPTPASS" \
-		ROOT_PASSWORD="$ROOT_PASSWORD" LANGCODE="$LANGCODE" MY_KEYMAP="$MY_KEYMAP" \
+		ROOT_PASSWORD="$ROOT_PASSWORD" USER="$USER" USER_PASSWORD="$USER_PASSWORD" \
+		LANGCODE="$LANGCODE" MY_KEYMAP="$MY_KEYMAP" \
 		artix-chroot /mnt sh -ec './root/iamchroot.sh; rm /root/iamchroot.sh; exit' &&
 	printf '\nYou may now poweroff.\n'
