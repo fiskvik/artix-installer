@@ -59,13 +59,17 @@ yes "$ROOT_PASSWORD" | passwd
 
 sed -i '/%wheel ALL=(ALL) ALL/s/^#//g' /etc/sudoers
 
-cp ./10-installer /etc/sudoers.d
-cp ./ssh_auth_sock /etc/sudoers.d
-cp ./telegraf /etc/sudoers.d
+touch /etc/sudoers.d/10-installer
+touch /etc/sudoers.d/ssh_auth_sock
+touch /etc/sudoers.d/telegraf
 
 chmod 640 /etc/sudoers.d/10-installer
 chmod 640 /etc/sudoers.d/ssh_auth_sock
 chmod 640 /etc/sudoers.d/telegraf
+
+echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/10-installer
+echo "Defaults>root    env_keep+=SSH_AUTH_SOCK" > /etc/sudoers.d/ssh_auth_sock
+echo "telegraf ALL = (root) NOPASSWD: /usr/bin/smartctl" > /etc/sudoers.d/telegraf
 
 # Other stuff you should do
 if [ "$MY_INIT" = "openrc" ]; then
