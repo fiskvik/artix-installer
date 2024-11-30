@@ -31,7 +31,7 @@ confirm_password() {
 
 # Load keymap
 until grep -q "^#*$LANGCODE\.UTF-8 UTF-8  $" /etc/locale.gen; do
-	printf "Language (en_US, de_DE, etc.): " && read -r LANGCODE
+	printf "Language (nb_NO, de_DE, etc.)(en_US): " && read -r LANGCODE
 	[ ! "$LANGCODE" ] && LANGCODE="en_US"
 done
 case "$LANGCODE" in
@@ -52,7 +52,7 @@ sudo loadkeys "$MY_KEYMAP"
 
 # Choose MY_INIT
 until [ "$MY_INIT" = "openrc" ] || [ "$MY_INIT" = "dinit" ]; do
-	printf "Init system (openrc/dinit): " && read -r MY_INIT
+	printf "Init system (openrc/dinit)(openrc): " && read -r MY_INIT
 	[ ! "$MY_INIT" ] && MY_INIT="openrc"
 done
 
@@ -61,7 +61,8 @@ until [ -b "$MY_DISK" ]; do
 	echo
 	sudo fdisk -l
 	printf "\nWarning: the selected disk will be rewritten.\n"
-	printf "\nDisk to install to (e.g. /dev/sda, /dev/nvme0n1, /dev/xvda): " && read -r MY_DISK
+	printf "\nDisk to install to (e.g. /dev/sda, /dev/nvme0n1, /dev/xvda)(/dev/xvda): " && read -r MY_DISK
+        [ ! "$MY_DISK" ] && MY_DISK="/dev/xvda"
 done
 
 PART1="$MY_DISK"1
@@ -81,8 +82,8 @@ done
 
 # Choose filesystem
 until [ "$MY_FS" = "btrfs" ] || [ "$MY_FS" = "xfs" ] || [ "$MY_FS" = "ext4" ]; do
-	printf "Filesystem (btrfs/xfs/ext4): " && read -r MY_FS
-	[ ! "$MY_FS" ] && MY_FS="btrfs"
+	printf "Filesystem (btrfs/xfs/ext4)(xfs): " && read -r MY_FS
+	[ ! "$MY_FS" ] && MY_FS="xfs"
 done
 
 # Encrypt or not
@@ -101,8 +102,8 @@ fi
 
 # Timezone
 until [ -f /usr/share/zoneinfo/"$REGION_CITY" ]; do
-	printf "Region/City (e.g. 'America/Denver'): " && read -r REGION_CITY
-	[ ! "$REGION_CITY" ] && REGION_CITY="America/Denver"
+	printf "Region/City (e.g. 'Europe/Oslo'): " && read -r REGION_CITY
+	[ ! "$REGION_CITY" ] && REGION_CITY="Europe/Oslo"
 done
 
 # Host
@@ -140,7 +141,11 @@ unset -v YESNO
 
 ROOT_PASSWORD=$(confirm_password "root password")
 
-AUTHORIZED_KEYS=$(src/authorized_keys)
+if [ "src/authorized_keys" ]; then
+        AUTHORIZED_KEYS=$(src/authorized_keys)
+else
+        AUTHORIZED_KEYS=""
+fi
 
 printf "\nDone with configuration. Installing...\n\n"
 
