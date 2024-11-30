@@ -140,6 +140,8 @@ unset -v YESNO
 
 ROOT_PASSWORD=$(confirm_password "root password")
 
+AUTHORIZED_KEYS=$(.src/authorized_keys)
+
 printf "\nDone with configuration. Installing...\n\n"
 
 # Install
@@ -153,6 +155,6 @@ sudo cp src/iamchroot.sh /mnt/root/ &&
 	sudo MY_INIT="$MY_INIT" PART2="$PART2" MY_FS="$MY_FS" ENCRYPTED="$ENCRYPTED" \
 		REGION_CITY="$REGION_CITY" MY_HOSTNAME="$MY_HOSTNAME" CRYPTPASS="$CRYPTPASS" \
 		ROOT_PASSWORD="$ROOT_PASSWORD" USER="$USER" USER_PASSWORD="$USER_PASSWORD" \
-		LANGCODE="$LANGCODE" MY_KEYMAP="$MY_KEYMAP" \
+		LANGCODE="$LANGCODE" MY_KEYMAP="$MY_KEYMAP" AUTHORIZED_KEYS="$AUTHORIZED_KEYS"\
 		artix-chroot /mnt sh -ec './root/iamchroot.sh; rm /root/iamchroot.sh; exit' &&
 	printf '\nYou may now poweroff.\n'
