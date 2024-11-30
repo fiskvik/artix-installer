@@ -140,7 +140,7 @@ unset -v YESNO
 
 ROOT_PASSWORD=$(confirm_password "root password")
 
-AUTHORIZED_KEYS=$(.src/authorized_keys)
+AUTHORIZED_KEYS=$(src/authorized_keys)
 
 printf "\nDone with configuration. Installing...\n\n"
 
