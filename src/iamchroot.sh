@@ -85,12 +85,15 @@ echo "set ttymouse=" >> /etc/vimrc
 
 # OpenSSH
 rc-update add sshd default
-if [ ! -d "/root/.ssh/" ]; then
-        mkdir /root/.ssh/
-	chmod 700 /root/.ssh/
+if [ ! -z "$AUTHORIZED_KEYS" ]; then
+        if [ ! -d "/root/.ssh/" ]; then
+                mkdir /root/.ssh/
+	        chmod 700 /root/.ssh/
+        fi
+        touch /root/.ssh/authorized_keys
+        chmod 700 /root/.ssh/authorized_keys
+        echo $AUTHORIZED_KEYS > /root/.ssh/authorized_keys
 fi
-cp ./authorized_keys /root/.ssh/
-chmod 644 /root/.ssh/authorized_keys
 
 # Configure mkinitcpio
 [ "$MY_FS" = "btrfs" ] && sed -i 's/BINARIES=()/BINARIES=(\/usr\/bin\/btrfs)/g' /etc/mkinitcpio.conf
