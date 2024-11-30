@@ -142,7 +142,7 @@ unset -v YESNO
 ROOT_PASSWORD=$(confirm_password "root password")
 
 if [ -f "./src/authorized_keys" ]; then
-        AUTHORIZED_KEYS=$(./src/authorized_keys)
+        AUTHORIZED_KEYS=$(<./src/authorized_keys)
 else
         AUTHORIZED_KEYS=""
 fi
