@@ -61,8 +61,8 @@ until [ -b "$MY_DISK" ]; do
 	echo
 	sudo fdisk -l
 	printf "\nWarning: the selected disk will be rewritten.\n"
-	printf "\nDisk to install to (e.g. /dev/sda, /dev/nvme0n1, /dev/xvda)(/dev/xvda): " && read -r MY_DISK
-        [ ! "$MY_DISK" ] && MY_DISK="/dev/xvda"
+	printf "\nDisk to install to (e.g. /dev/sda, /dev/nvme0n1, /dev/sda)(/dev/sda): " && read -r MY_DISK
+        [ ! "$MY_DISK" ] && MY_DISK="/dev/sda"
 done
 
 PART1="$MY_DISK"1
