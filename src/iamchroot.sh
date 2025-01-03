@@ -70,6 +70,7 @@ chmod 640 /etc/sudoers.d/telegraf
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/10-installer
 echo "Defaults>root    env_keep+=SSH_AUTH_SOCK" > /etc/sudoers.d/ssh_auth_sock
 echo "telegraf ALL = (root) NOPASSWD: /usr/bin/smartctl" > /etc/sudoers.d/telegraf
+echo "Defaults !log_allowed, !pam_session" > /etc/sudoers.d/telegraf
 
 # Other stuff you should do
 if [ "$MY_INIT" = "openrc" ]; then
