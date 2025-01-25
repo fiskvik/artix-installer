@@ -57,7 +57,11 @@ fi
 # Root user
 yes "$ROOT_PASSWORD" | passwd
 
-sed -i '/%wheel ALL=(ALL) ALL/s/^#//g' /etc/sudoers
+sed -i '/# %wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
+
+sed -i '/#Color/s/^#//g' /etc/pacman.conf
+sed -i '/#UseSyslog/s/^#//g' /etc/pacman.conf
+sed -i '/#VerbosePkgLists/s/^#//g' /etc/pacman.conf
 
 touch /etc/sudoers.d/10-installer
 touch /etc/sudoers.d/ssh_auth_sock
