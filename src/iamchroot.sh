@@ -59,6 +59,8 @@ yes "$ROOT_PASSWORD" | passwd
 
 sed -i '/# %wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 
+sed -i '/# - the ntp.conf man page/a \\nserver warpath.robotpanda.no prefer' /etc/ntp.conf
+
 sed -i '/#Color/s/^#//g' /etc/pacman.conf
 sed -i '/#UseSyslog/s/^#//g' /etc/pacman.conf
 sed -i '/#VerbosePkgLists/s/^#//g' /etc/pacman.conf
