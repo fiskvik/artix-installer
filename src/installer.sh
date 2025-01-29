@@ -20,8 +20,8 @@
 # along with artix-installer. If not, see <https://www.gnu.org/licenses/>.
 
 pkgs="base base-devel $MY_INIT elogind-$MY_INIT efibootmgr grub dhcpcd wpa_supplicant connman-$MY_INIT \
-vim openssh openssh-$MY_INIT less rsync rsync-$MY_INIT man-db python syslog-ng syslog-ng-$MY_INIT" \
-ntp ntp-$MY_INIT"
+vim openssh openssh-$MY_INIT less rsync rsync-$MY_INIT man-db python syslog-ng syslog-ng-$MY_INIT \
+ntp ntp-$MY_INIT git"
 [ "$MY_FS" = "xfs" ] && pkgs="$pkgs xfsprogs"
 [ "$MY_FS" = "btrfs" ] && pkgs="$pkgs btrfs-progs"
 [ "$ENCRYPTED" = "y" ] && pkgs="$pkgs cryptsetup cryptsetup-$MY_INIT"
