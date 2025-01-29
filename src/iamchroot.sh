@@ -78,12 +78,12 @@ echo "Defaults>root    env_keep+=SSH_AUTH_SOCK" > /etc/sudoers.d/ssh_auth_sock
 echo "telegraf ALL = (root) NOPASSWD: /usr/bin/smartctl" > /etc/sudoers.d/telegraf
 echo "Defaults:telegraf !log_allowed, !pam_session" > /etc/sudoers.d/telegraf
 
-echo "# Show effective user in prompts and terminal titles" > /etc/bash/bashrc.d/prompt.bashrc
-echo "USER=`id -un`" > /etc/bash/bashrc.d/prompt.bashrc
-echo "" > /etc/bash/bashrc.d/prompt.bashrc
-echo "# Make a nice prompt" > /etc/bash/bashrc.d/prompt.bashrc
-echo "[ "${EUID}" = "0" ] && export PS1="\[\033[1;32m\]\h\[\033[0;37m\]:\[\033[34m\][\[\033[1;31m\]\u\[\033[0;34m\]]\[\033[0;37m\]:\[\033[35m\]\w\[\033[1;33m\]#\[\033[0m\] " \" > /etc/bash/bashrc.d/prompt.bashrc
-echo "                    || export PS1="\[\033[1;32m\]\h\[\033[0;37m\]:\[\033[31m\][\[\033[1;34m\]\u\[\033[0;31m\]]\[\033[0;37m\]:\[\033[35m\]\w\[\033[1;33m\]$\[\033[0m\] "" > /etc/bash/bashrc.d/prompt.bashrc
+echo '# Show effective user in prompts and terminal titles' > /etc/bash/bashrc.d/prompt.bashrc
+echo 'USER=`id -un`' > /etc/bash/bashrc.d/prompt.bashrc
+echo '' > /etc/bash/bashrc.d/prompt.bashrc
+echo '# Make a nice prompt' > /etc/bash/bashrc.d/prompt.bashrc
+echo '[ "${EUID}" = "0" ] && export PS1="\[\033[1;32m\]\h\[\033[0;37m\]:\[\033[34m\][\[\033[1;31m\]\u\[\033[0;34m\]]\[\033[0;37m\]:\[\033[35m\]\w\[\033[1;33m\]#\[\033[0m\] " \' > /etc/bash/bashrc.d/prompt.bashrc
+echo '                    || export PS1="\[\033[1;32m\]\h\[\033[0;37m\]:\[\033[31m\][\[\033[1;34m\]\u\[\033[0;31m\]]\[\033[0;37m\]:\[\033[35m\]\w\[\033[1;33m\]$\[\033[0m\] "' > /etc/bash/bashrc.d/prompt.bashrc
 
 # Other stuff you should do
 if [ "$MY_INIT" = "openrc" ]; then
