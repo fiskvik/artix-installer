@@ -1,0 +1,1 @@
+u telegraf - "Telegraf daemon user" /var/lib/telegraf /sbin/nologin
