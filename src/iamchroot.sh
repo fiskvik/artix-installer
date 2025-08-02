@@ -90,9 +90,9 @@ echo '                    || export PS1="\[\033[1;32m\]\h\[\033[0;37m\]:\[\033[3
 # Other stuff you should do
 if [ "$MY_INIT" = "openrc" ]; then
 	sed -i '/rc_need="localmount"/s/^#//g' /etc/conf.d/swap
-	rc-update add connmand default
+	rc-update add NetworkManager default
 elif [ "$MY_INIT" = "dinit" ]; then
-	ln -s /etc/dinit.d/connmand /etc/dinit.d/boot.d/
+	ln -s /etc/dinit.d/NetworkManager /etc/dinit.d/boot.d/
 fi
 
 # Make vim behave itself
